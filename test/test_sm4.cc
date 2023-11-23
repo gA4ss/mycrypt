@@ -7,7 +7,11 @@
 
 using namespace mycrypt;
 
-TEST(SM3, EnCrypt)
+TEST(SM4, EnCrypt)
+{
+}
+
+TEST(SM4, DeCrypt)
 {
 }
 

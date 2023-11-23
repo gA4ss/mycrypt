@@ -1,3 +1,0 @@
-$LIBSSL=../../libssl
-
-SOURCE[$LIBSSL]=quic_method.c quic_impl.c
