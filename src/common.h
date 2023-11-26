@@ -28,11 +28,6 @@ namespace mycrypt
   // } point_t;
 
   //
-  // 默认是大端字序
-  //
-#define IS_BIG_ENDIAN
-
-  //
   // 交换高低位
   //
 #define rotate(a, n) (((a) << (n)) | (((a) & 0xffffffff) >> (32 - (n))))

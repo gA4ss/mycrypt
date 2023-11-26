@@ -17,8 +17,8 @@ namespace mycrypt
   void sm4_encrypt(const uint8_t *in, uint8_t *out, const sm4_key_t &ks);
   void sm4_decrypt(const uint8_t *in, uint8_t *out, const sm4_key_t &ks);
 
-  int sm4_ctr(unsigned char * input, size_t len, unsigned char *output, 
-              unsigned char key[sm4_block_size], unsigned char iv[sm4_block_size]);
+  // int sm4_ctr(unsigned char * input, size_t len, unsigned char *output,
+  //             unsigned char key[sm4_block_size], unsigned char iv[sm4_block_size]);
 
 } // namespace mycrypt
 
