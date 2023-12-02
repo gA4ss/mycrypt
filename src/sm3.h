@@ -11,7 +11,8 @@ namespace mycrypt
 
   int sm3(unsigned char *data, size_t datalen, unsigned char digest[sm3_digest_length]);
   int sm3_hmac(unsigned char *data, size_t datalen, unsigned char *key, size_t key_len, unsigned char mac[sm3_hmac_size]);
-
+  int sm3_file(const char *path, unsigned char digest[sm3_digest_length]);
+  int sm3_hmac_file(const char *path, unsigned char *key, size_t key_len, unsigned char mac[sm3_hmac_size]);
 } // namespace mycrypt
 
 #endif // MYCRYPT_SM3_H_

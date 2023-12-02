@@ -53,6 +53,21 @@ TEST(SM3, hmac)
   EXPECT_STREQ(digest_to_str(digest).c_str(), "15a77e05268f410d3eacc6ebcbed31b6c91ac02bd6679a974dd0230fd62e5540");
 }
 
+TEST(SM3, file)
+{
+  unsigned char digest[32] = {0};
+  sm3_file("/home/ga4ss/workspace/mycrypt/test/nanan.jpg", digest);
+  EXPECT_STREQ(digest_to_str(digest).c_str(), "e6f8159b6fdd2584f3eec3a47ad85c9a161866a285554e7ac1549d49d41f9ef6");
+}
+
+TEST(SM3, hmac_file)
+{
+  char *key = "crackme";
+  unsigned char mac[32] = {0};
+  sm3_hmac_file("/home/ga4ss/workspace/mycrypt/test/nanan.jpg", (unsigned char *)key, strlen(key), mac);
+  EXPECT_STREQ(digest_to_str(mac).c_str(), "da4dbfbc689ea63a82e186dd4b38817b3e0609745bb24c4dcbac66af6c108b05");
+}
+
 int main(int argc, char *argv[])
 {
   testing::InitGoogleTest(&argc, argv);

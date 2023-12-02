@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.5)
 project(mycrypt VERSION 1.0)
 
-# set(DEBUG 1)
+set(DEBUG 1)
 if(DEBUG)
 message(STATUS "compile debug version.")
 add_definitions(-std=c++11 -g -O0 -DDEBUG -Wunused-variable)
@@ -51,7 +51,8 @@ set(MYCRYPT_PUBLIC_HEADERS
 add_library(${PROJECT_NAME} STATIC
   ${SRC_DIRECTORY}/sm2.cc
   ${SRC_DIRECTORY}/sm3.cc
-  ${SRC_DIRECTORY}/sm4.cc)
+  ${SRC_DIRECTORY}/sm4.cc
+)
 target_link_libraries(${PROJECT_NAME} my)
 
 

@@ -1,5 +1,6 @@
 #include <mycrypt/sm3.h>
 #include <cstring>
+#include <cstdlib>
 
 namespace mycrypt
 {
@@ -360,7 +361,6 @@ namespace mycrypt
     return 0;
   }
 
-//////////////////////////////////////////////////////////////////////////////////////////
   #include "__sm3_hmac.cc"
 
   int sm3_hmac (unsigned char *data, size_t datalen, unsigned char *key, size_t key_len, unsigned char mac[sm3_hmac_size])
@@ -371,6 +371,73 @@ namespace mycrypt
     __sm3_hmac_init(ctx, key, key_len);
     __sm3_hmac_update(ctx, data, datalen);
     __sm3_hmac_final(ctx, mac);
+    return 0;
+  }
+
+  int sm3_file(const char *path, unsigned char digest[sm3_digest_length])
+  {
+    FILE *file = fopen(path, "rb");
+    if (file == nullptr)
+    {
+      return -1;
+    }
+
+    sm3_state_t ctx;
+
+    size_t bytes;
+    unsigned char buffer[32];
+    while ((bytes = fread(buffer, 1, sizeof(buffer), file)) != 0)
+    {
+      if (__sm3_update(ctx, buffer, bytes) != 0)
+      {
+        fclose(file);
+        return -1;
+      }
+    }
+
+    if (__sm3_final(ctx, digest) != 0)
+    {
+      fclose(file);
+      return -1;
+    }
+
+    fclose(file);
+    return 0;
+  }
+
+  int sm3_hmac_file(const char *path, unsigned char *key, size_t key_len, 
+                    unsigned char mac[sm3_hmac_size])
+  {
+    if (!path || !key)
+      return -1;
+
+    FILE *file = fopen(path, "rb");
+    if (file == nullptr)
+    {
+      return -1;
+    }
+
+    sm3_hmac_state_t ctx;
+    __sm3_hmac_init(ctx, key, key_len);
+
+    size_t bytes;
+    unsigned char buffer[32];
+    while ((bytes = fread(buffer, 1, sizeof(buffer), file)) != 0)
+    {
+      if (__sm3_hmac_update(ctx, buffer, bytes) != 0)
+      {
+        fclose(file);
+        return -1;
+      }
+    }
+
+    if (__sm3_hmac_final(ctx, mac) != 0)
+    {
+      fclose(file);
+      return -1;
+    }
+
+    fclose(file);
     return 0;
   }
 
