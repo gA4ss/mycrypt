@@ -10,7 +10,6 @@ namespace mycrypt
   {
     sm4_cipher_t ctx;
     sm4_init_encrypt(ctx, mode_ecb, key, {});
-    ctx.encrypt = 1;
 
     size_t outlen = 0, enlen = 0;
     sm4_encrypt_update(ctx, input, len, output, &outlen);
@@ -25,7 +24,6 @@ namespace mycrypt
   {
     sm4_cipher_t ctx;
     sm4_init_decrypt(ctx, mode_ecb, key, {});
-    ctx.encrypt = 0;
 
     size_t outlen = 0, delen = 0;
     sm4_decrypt_update(ctx, input, len, output, &outlen);

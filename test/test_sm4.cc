@@ -9,7 +9,6 @@ using namespace mycrypt;
 
 TEST(SM4, ECB_Data)
 {
-
   unsigned char text[] = "Hello, SM4!";
   unsigned char key[] = "0123456789abcdef";
   unsigned char ct[256];
@@ -28,6 +27,10 @@ TEST(SM4, ECB_Data)
   int dl = sm4_ecb_decrypt(ct, cl, dt, key);
   std::cout << "plaintext size : " << dl << std::endl;
   std::cout << "plaintext: " << dt << std::endl;
+}
+
+TEST(SM4, ECB_File)
+{
 }
 
 int main(int argc, char *argv[])
